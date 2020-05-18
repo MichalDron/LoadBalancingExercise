@@ -4,12 +4,11 @@ namespace LoadBalancing.App
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async System.Threading.Tasks.Task Main(string[] args)
         {
-            Startup.Run();
+            Console.WriteLine("Application started");
 
-            Console.WriteLine("Type any key to close.");
-            Console.ReadKey();
+            await Startup.RunAsync();
         }
     }
 }

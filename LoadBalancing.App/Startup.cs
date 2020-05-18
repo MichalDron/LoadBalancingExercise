@@ -1,60 +1,57 @@
 ﻿using LoadBalancing.Extensions;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using LoadBalancing.Algorithms.RoundRobin;
+using LoadBalancing.HeartBeatChecker.Extensions;
+using System.Threading.Tasks;
+using LoadBalancing.Abstractions;
+using Microsoft.Extensions.Hosting;
+using System;
+using LoadBalancing.App.SampleProviders;
+using LoadBalancing.Providers.Abstractions;
 
 namespace LoadBalancing.App
 {
     public class Startup
     {
-        public static void Run()
+        public static Task RunAsync()
         {
-            var serviceProvider = new ServiceCollection()
-                .AddLoadBalancer(options => options.SetInvocationAlgorithm<RoundRobinInvocationAlgorithm>())
-                .BuildServiceProvider();
+            var host = new HostBuilder().ConfigureServices((hostContext, services) =>
+           {
+               services
+                   .AddLoadBalancer(options => options.SetInvocationAlgorithm<RoundRobinInvocationAlgorithm>())
+                   .AddLoadBalancerHeartBeatCheckService(options => options.CheckPeriodInSeconds = 3)
+                   .AddHostedService<LoadBalancerService>();
+           }).Build();
 
-            ILoadBalancer loadBalancer = serviceProvider.GetService<ILoadBalancer>();
+            RegisterProviders(host);
 
-            IProviderStoreService providerStoreService = serviceProvider.GetService<IProviderStoreService>();
+            return host.RunAsync();
+        }
 
-            for (int i = 0; i < 10; i++)
+        private static void RegisterProviders(IHost host)
+        {
+            var providerStoreService = host.Services.GetService<IProviderStoreService>();
+
+            int i = 0;
+            for (; i < 4; i++)
             {
-                SampleProvider provider = new SampleProvider($"providerId{i}");
+                IProvider provider = new SampleProvider($"providerId{i}");
                 providerStoreService.Register(provider);
                 Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
 
-            Console.WriteLine("Before Exclusion");
-
-            for (int i = 0; i < 15; i++)
+            for (; i >= 4 && i < 8; i++)
             {
-                var result = loadBalancer.get();
-
-                Console.WriteLine($"Request was handled by provider with id = '{result}'");
+                IProvider provider = new NeverAvailableProvider($"providerId{i}");
+                providerStoreService.Register(provider);
+                Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
 
-            providerStoreService.ExcludeProvider("providerId2");
-            providerStoreService.ExcludeProvider("providerId4");
-            providerStoreService.ExcludeProvider("providerId6");
-
-            Console.WriteLine("With Exclusion");
-
-            for (int i = 0; i < 15; i++)
+            for (; i >= 8 && i < 10; i++)
             {
-                var result = loadBalancer.get();
-
-                Console.WriteLine($"Request was handled by provider with id = '{result}'");
-            }
-
-            providerStoreService.IncludeProvider("providerId4");
-
-            Console.WriteLine("With Inclusion 1 excluded provider");
-
-            for (int i = 0; i < 15; i++)
-            {
-                var result = loadBalancer.get();
-
-                Console.WriteLine($"Request was handled by provider with id = '{result}'");
+                IProvider provider = new AlwaysAvailableProvider($"providerId{i}");
+                providerStoreService.Register(provider);
+                Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
         }
     }

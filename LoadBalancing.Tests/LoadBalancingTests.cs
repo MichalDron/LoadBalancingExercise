@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using LoadBalancing.Abstractions;
 using LoadBalancing.Algorithms.RoundRobin;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Extensions;
