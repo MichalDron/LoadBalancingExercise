@@ -10,6 +10,8 @@ Simplistic implementation of Load Balancer. It is exercise to write load balance
 Solution is devided into .NET Core projects:
 * `LoadBalancing`
 * `LoadBalancing.Providers.Abstractions`
+* `LoadBalancing.Algorithms.Abstractions`
+* `LoadBalancing.Algorithms.RandomInvocation`
 * `LoadBalancing.Tests`
 * `LoadBalancing.App`
 
@@ -17,7 +19,13 @@ Solution is devided into .NET Core projects:
 Core project with implementation of load balancing functionality. 
 
 #### LoadBalancing.Providers.Abstractions
-Package with abstractions needed to implement compatible `Provider`, which can be used then by `LoadBalancer`
+Package with abstractions needed to implement compatible `IProvider`, which can be used then by `LoadBalancer`
+
+#### LoadBalancing.Algorithms.Abstractions
+Package with abstractions needed to implement compatible `IInvocationAlgorithm`, which can be used then by `LoadBalancer`
+
+#### LoadBalancing.Algorithms.RandomInvocation
+Package with implemented `RandomInvocationAlgorithm`
 
 #### LoadBalancing.Tests
 Test project for load balancing functionality.

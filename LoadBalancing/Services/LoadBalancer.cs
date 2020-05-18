@@ -1,16 +1,19 @@
-﻿using LoadBalancing.Providers.Abstractions;
-using System.Linq;
+﻿using System.Linq;
+using LoadBalancing.Providers.Abstractions;
 using LoadBalancing.Exceptions;
+using LoadBalancing.Algorithms.Abstractions;
 
 namespace LoadBalancing.Services
 {
     internal class LoadBalancer : ILoadBalancer
     {
         private readonly IProviderStoreService _providerStoreService;
+        private readonly IInvocationAlgorithm _invocationAlgorithm;
 
-        public LoadBalancer(IProviderStoreService providerStoreService)
+        public LoadBalancer(IProviderStoreService providerStoreService, IInvocationAlgorithm invocationAlgorithm)
         {
             _providerStoreService = providerStoreService;
+            _invocationAlgorithm = invocationAlgorithm;
         }
 
         public string get()
@@ -29,7 +32,7 @@ namespace LoadBalancing.Services
                 throw new NoProviderAvailableException();
             }
 
-            return providers.FirstOrDefault();
+            return _invocationAlgorithm.GetProvider(providers);
         }
     }
 }

@@ -9,6 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\LoadBalancing.Algorithms.Abstractions\LoadBalancing.Algorithms.Abstractions.csproj" />
+    <ProjectReference Include="..\LoadBalancing.Algorithms.RandomInvocationAlgorithm\LoadBalancing.Algorithms.RandomInvocation.csproj" />
     <ProjectReference Include="..\LoadBalancing.Providers.Interfaces\LoadBalancing.Providers.Abstractions.csproj" />
   </ItemGroup>
 

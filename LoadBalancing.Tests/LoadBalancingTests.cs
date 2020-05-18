@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using LoadBalancing.Algorithms.RandomInvocationAlgorithm;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Extensions;
 using LoadBalancing.Tests.Fakes;
@@ -16,7 +18,7 @@ namespace LoadBalancing.Tests
         public void Setup()
         {
             var serviceProvider = new ServiceCollection()
-                .AddLoadBalancer()
+                .AddLoadBalancer(options => options.SetInvocationAlgorithm<RandomInvocationAlgorithm>())
                 .BuildServiceProvider();
 
             _loadBalancer = serviceProvider.GetService<ILoadBalancer>();
@@ -33,7 +35,8 @@ namespace LoadBalancing.Tests
         }
 
         [Test]
-        public void GivenMultipleProvidersRegistered_WhenRunGet_ReturnsProviderValue()
+        [Ignore("Non-deterministic, using Random function")]
+        public void GivenMultipleProvidersRegistered_WhenRunGet_ReturnsDifferentProviderValue()
         {
             // Arrange
             var provider1 = new ProviderFake("providerId1");
@@ -42,14 +45,31 @@ namespace LoadBalancing.Tests
             _providerStoreService.Register(provider2);
 
             // Act
-            var firstResult = _loadBalancer.get();
-            var secondResult = _loadBalancer.get();
-            var thirdResult = _loadBalancer.get();
+            var result = new List<string>();
+            for (int i = 0; i < 100; i++)
+            {
+                result.Add(_loadBalancer.get());
+            }
 
             // Assert
-            Assert.AreEqual(provider1.get(), firstResult);
-            Assert.AreEqual(provider1.get(), secondResult);
-            Assert.AreEqual(provider1.get(), thirdResult);
+            Assert.True(result.Contains(provider1.Id));
+            Assert.True(result.Contains(provider2.Id));
+        }
+
+        [Test]
+        public void GivenMultipleProvidersRegistered_WhenRunGet_DoesNotFail()
+        {
+            // Arrange
+            var provider1 = new ProviderFake("providerId1");
+            var provider2 = new ProviderFake("providerId2");
+            _providerStoreService.Register(provider1);
+            _providerStoreService.Register(provider2);
+
+            // Act & Assert
+            for (int i = 0; i < 100; i++)
+            {
+                Assert.DoesNotThrow(() => _loadBalancer.get());
+            }
         }
     }
 }

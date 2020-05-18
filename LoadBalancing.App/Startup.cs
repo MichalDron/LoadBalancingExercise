@@ -1,6 +1,7 @@
 ﻿using LoadBalancing.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using LoadBalancing.Algorithms.RandomInvocationAlgorithm;
 
 namespace LoadBalancing.App
 {
@@ -9,7 +10,7 @@ namespace LoadBalancing.App
         public static void Run()
         {
             var serviceProvider = new ServiceCollection()
-                .AddLoadBalancer()
+                .AddLoadBalancer(options => options.SetInvocationAlgorithm<RandomInvocationAlgorithm>())
                 .BuildServiceProvider();
 
             ILoadBalancer loadBalancer = serviceProvider.GetService<ILoadBalancer>();
@@ -18,7 +19,7 @@ namespace LoadBalancing.App
 
             for (int i = 0; i < 10; i++)
             {
-                SampleProvider provider = new SampleProvider();
+                SampleProvider provider = new SampleProvider($"providerId{i}");
                 providerStoreService.Register(provider);
                 Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
