@@ -24,7 +24,33 @@ namespace LoadBalancing.App
                 Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
 
-            for (int i = 0; i < 20; i++)
+            Console.WriteLine("Before Exclusion");
+
+            for (int i = 0; i < 15; i++)
+            {
+                var result = loadBalancer.get();
+
+                Console.WriteLine($"Request was handled by provider with id = '{result}'");
+            }
+
+            providerStoreService.ExcludeProvider("providerId2");
+            providerStoreService.ExcludeProvider("providerId4");
+            providerStoreService.ExcludeProvider("providerId6");
+
+            Console.WriteLine("With Exclusion");
+
+            for (int i = 0; i < 15; i++)
+            {
+                var result = loadBalancer.get();
+
+                Console.WriteLine($"Request was handled by provider with id = '{result}'");
+            }
+
+            providerStoreService.IncludeProvider("providerId4");
+
+            Console.WriteLine("With Inclusion 1 excluded provider");
+
+            for (int i = 0; i < 15; i++)
             {
                 var result = loadBalancer.get();
 

@@ -25,7 +25,7 @@ namespace LoadBalancing.Services
 
         private IProvider GetProvider()
         {
-            var providers = _providerStoreService.GetProviders();
+            var providers = _providerStoreService.GetAvailableProviders();
 
             if (!providers.Any())
             {
