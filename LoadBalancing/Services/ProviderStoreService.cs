@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Providers.Abstractions;
 
@@ -9,6 +10,7 @@ namespace LoadBalancing.Services
     {
         private const int MAX_PROVIDERS_LIMIT = 10;
         private readonly IDictionary<string, IProvider> _providerStore;
+        private readonly ProviderComparer _providerComparer = new ProviderComparer();
 
         public ProviderStoreService()
         {
@@ -17,6 +19,11 @@ namespace LoadBalancing.Services
 
         public void Register(IProvider provider)
         {
+            if (provider.Id == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             if (_providerStore.Count >= MAX_PROVIDERS_LIMIT)
             {
                 throw new MaxProviderCountExceededException();
@@ -32,7 +39,7 @@ namespace LoadBalancing.Services
 
         public IList<IProvider> GetProviders()
         {
-            return _providerStore.Values.ToList();
+            return _providerStore.Values.ToImmutableSortedSet(_providerComparer);
         }
 
         public int MaxProviderLimit => MAX_PROVIDERS_LIMIT;

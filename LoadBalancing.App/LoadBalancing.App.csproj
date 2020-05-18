@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LoadBalancing.Algorithms.RandomInvocationAlgorithm\LoadBalancing.Algorithms.RandomInvocation.csproj" />
+    <ProjectReference Include="..\LoadBalancing.Algorithms.RoundRobin\LoadBalancing.Algorithms.RoundRobin.csproj" />
     <ProjectReference Include="..\LoadBalancing.Providers.Interfaces\LoadBalancing.Providers.Abstractions.csproj" />
     <ProjectReference Include="..\LoadBalancing\LoadBalancing.csproj" />
   </ItemGroup>
