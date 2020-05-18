@@ -7,9 +7,9 @@ namespace LoadBalancing.App
     {
         private readonly string _id;
 
-        public SampleProvider()
+        public SampleProvider(string id)
         {
-            _id = Guid.NewGuid().ToString();
+            _id = id;
         }
 
         public string Id => _id;
