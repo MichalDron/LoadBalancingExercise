@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using LoadBalancing.Algorithms.RandomInvocationAlgorithm;
+using LoadBalancing.Algorithms.RandomInvocation;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Extensions;
 using LoadBalancing.Tests.Fakes;
