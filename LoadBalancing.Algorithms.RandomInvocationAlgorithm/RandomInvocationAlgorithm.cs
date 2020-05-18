@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace LoadBalancing.Algorithms.RandomInvocationAlgorithm
+namespace LoadBalancing.Algorithms.RandomInvocation
 {
     public class RandomInvocationAlgorithm : IInvocationAlgorithm
     {

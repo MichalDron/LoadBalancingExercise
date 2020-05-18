@@ -1,6 +1,6 @@
 ﻿using System;
 using LoadBalancing.Algorithms.Abstractions;
-using LoadBalancing.Algorithms.RandomInvocationAlgorithm;
+using LoadBalancing.Algorithms.RandomInvocation;
 
 namespace LoadBalancing.Extensions
 {

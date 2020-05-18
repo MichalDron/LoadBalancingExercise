@@ -1,7 +1,7 @@
 ﻿using LoadBalancing.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using LoadBalancing.Algorithms.RandomInvocationAlgorithm;
+using LoadBalancing.Algorithms.RandomInvocation;
 
 namespace LoadBalancing.App
 {
