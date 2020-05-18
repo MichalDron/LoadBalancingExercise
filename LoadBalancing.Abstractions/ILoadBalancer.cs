@@ -1,4 +1,4 @@
-﻿namespace LoadBalancing
+﻿namespace LoadBalancing.Abstractions
 {
     public interface ILoadBalancer
     {

@@ -5,5 +5,7 @@
         string Id { get; }
 
         string get();
+
+        bool check();
     }
 }

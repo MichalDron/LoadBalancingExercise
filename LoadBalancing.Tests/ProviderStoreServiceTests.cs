@@ -1,3 +1,4 @@
+using LoadBalancing.Abstractions;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Extensions;
 using LoadBalancing.Tests.Fakes;
@@ -50,7 +51,7 @@ namespace LoadBalancing.Tests
             }
 
             // Assert
-            Assert.AreEqual(providersToRegisterCount, _providerStoreService.GetProviders().Count);
+            Assert.AreEqual(providersToRegisterCount, _providerStoreService.GetAllProviders().Count);
         }
 
         [Test]
@@ -66,7 +67,7 @@ namespace LoadBalancing.Tests
             }
 
             // Assert
-            Assert.AreEqual(maxProviderCount, _providerStoreService.GetProviders().Count);
+            Assert.AreEqual(maxProviderCount, _providerStoreService.GetAllProviders().Count);
         }
 
         [Test]

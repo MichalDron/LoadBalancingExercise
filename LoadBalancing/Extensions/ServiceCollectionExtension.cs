@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using LoadBalancing.Algorithms.Abstractions;
+using LoadBalancing.Abstractions;
 
 namespace LoadBalancing.Extensions
 {

@@ -1,13 +1,13 @@
 ﻿using System.Collections.Generic;
 using LoadBalancing.Providers.Abstractions;
 
-namespace LoadBalancing
+namespace LoadBalancing.Abstractions
 {
     public interface IProviderStoreService
     {
         IList<IProvider> GetAvailableProviders();
 
-        IList<IProvider> GetProviders();
+        IList<IProvider> GetAllProviders();
 
         void Register(IProvider provider);
 

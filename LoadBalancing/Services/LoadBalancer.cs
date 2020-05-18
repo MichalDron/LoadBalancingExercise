@@ -2,6 +2,7 @@
 using LoadBalancing.Providers.Abstractions;
 using LoadBalancing.Exceptions;
 using LoadBalancing.Algorithms.Abstractions;
+using LoadBalancing.Abstractions;
 
 namespace LoadBalancing.Services
 {
