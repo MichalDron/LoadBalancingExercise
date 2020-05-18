@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancing.Algorithms.Ab
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancing.Algorithms.RandomInvocation", "LoadBalancing.Algorithms.RandomInvocationAlgorithm\LoadBalancing.Algorithms.RandomInvocation.csproj", "{8B620551-8651-476E-A889-F63D68ADEA28}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoadBalancing.Algorithms.RoundRobin", "LoadBalancing.Algorithms.RoundRobin\LoadBalancing.Algorithms.RoundRobin.csproj", "{A369CBC4-5A13-4EC9-A91C-83326B1823ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8B620551-8651-476E-A889-F63D68ADEA28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B620551-8651-476E-A889-F63D68ADEA28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B620551-8651-476E-A889-F63D68ADEA28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A369CBC4-5A13-4EC9-A91C-83326B1823ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A369CBC4-5A13-4EC9-A91C-83326B1823ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A369CBC4-5A13-4EC9-A91C-83326B1823ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A369CBC4-5A13-4EC9-A91C-83326B1823ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,7 +1,7 @@
 ﻿using LoadBalancing.Extensions;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using LoadBalancing.Algorithms.RandomInvocation;
+using LoadBalancing.Algorithms.RoundRobin;
 
 namespace LoadBalancing.App
 {
@@ -10,7 +10,7 @@ namespace LoadBalancing.App
         public static void Run()
         {
             var serviceProvider = new ServiceCollection()
-                .AddLoadBalancer(options => options.SetInvocationAlgorithm<RandomInvocationAlgorithm>())
+                .AddLoadBalancer(options => options.SetInvocationAlgorithm<RoundRobinInvocationAlgorithm>())
                 .BuildServiceProvider();
 
             ILoadBalancer loadBalancer = serviceProvider.GetService<ILoadBalancer>();

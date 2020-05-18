@@ -20,7 +20,7 @@ namespace LoadBalancing.Extensions
             }
 
             serviceCollection
-                .AddSingleton(typeof(IInvocationAlgorithm), loadBalancerOptions.InvocationAlgorithmType);
+                .AddTransient(typeof(IInvocationAlgorithm), loadBalancerOptions.InvocationAlgorithmType);
 
             return serviceCollection;
         }

@@ -12,6 +12,7 @@ Solution is devided into .NET Core projects:
 * `LoadBalancing.Providers.Abstractions`
 * `LoadBalancing.Algorithms.Abstractions`
 * `LoadBalancing.Algorithms.RandomInvocation`
+* `LoadBalancing.Algorithms.RoundRobin`
 * `LoadBalancing.Tests`
 * `LoadBalancing.App`
 
@@ -26,6 +27,9 @@ Package with abstractions needed to implement compatible `IInvocationAlgorithm`,
 
 #### LoadBalancing.Algorithms.RandomInvocation
 Package with implemented `RandomInvocationAlgorithm`
+
+#### LoadBalancing.Algorithms.RandomInvocation
+Package with implemented `RoundRobinInvocationAlgorithm`
 
 #### LoadBalancing.Tests
 Test project for load balancing functionality.
