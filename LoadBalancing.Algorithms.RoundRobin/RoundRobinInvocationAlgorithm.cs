@@ -17,7 +17,7 @@ namespace LoadBalancing.Algorithms.RoundRobin
                 throw new ArgumentException("Providers list should not be empty.");
             }
 
-            bool shouldRestartIndexCounting = _providerIndex >= providers.Count - 1;
+            bool shouldRestartIndexCounting = _providerIndex > providers.Count - 1;
             if (shouldRestartIndexCounting)
             {
                 _providerIndex = 0;
