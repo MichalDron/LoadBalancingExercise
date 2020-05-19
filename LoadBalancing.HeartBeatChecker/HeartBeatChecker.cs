@@ -11,12 +11,15 @@ namespace LoadBalancing.HeartBeatChecker
 {
     public class HeartBeatCheckService : IHostedService, IDisposable
     {
+        private const int SUCCESSFUL_RECHECKED_MIN_COUNT = 2;
         private Timer _timer;
         private readonly IProviderStoreService _providerStoreService;
         private readonly TimeSpan _workerPeriod;
+        private readonly IDictionary<string, int> _providerAvailabilityState;
 
         public HeartBeatCheckService(IProviderStoreService providerStoreService, HeartBeatCheckServiceOptions heartBeatCheckServiceOptions)
         {
+            _providerAvailabilityState = new Dictionary<string, int>();
             _providerStoreService = providerStoreService;
             _workerPeriod = TimeSpan.FromSeconds(heartBeatCheckServiceOptions.CheckPeriodInSeconds);
         }
@@ -51,13 +54,22 @@ namespace LoadBalancing.HeartBeatChecker
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                //Console.WriteLine(e);
                 isProviderAvailable = false;
             }
 
             if (!isProviderAvailable)
             {
                 _providerStoreService.ExcludeProvider(provider.Id);
+                _providerAvailabilityState[provider.Id] = SUCCESSFUL_RECHECKED_MIN_COUNT;
+            }
+            else
+            {
+                if (_providerAvailabilityState.ContainsKey(provider.Id) && _providerAvailabilityState[provider.Id] > 0)
+                {
+                    _providerStoreService.IncludeProvider(provider.Id);
+                    _providerAvailabilityState[provider.Id]--;
+                }
             }
         }
 
