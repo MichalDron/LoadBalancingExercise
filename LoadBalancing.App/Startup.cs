@@ -35,7 +35,7 @@ namespace LoadBalancing.App
             int i = 0;
             for (; i < 4; i++)
             {
-                IProvider provider = new SampleProvider($"providerId{i}");
+                IProvider provider = new EveryNthRequestUnavailableProvider($"providerId{i}", i * 2, i * 2);
                 providerStoreService.Register(provider);
                 Console.WriteLine($"Registered provider with id = '{provider.Id}'");
             }
