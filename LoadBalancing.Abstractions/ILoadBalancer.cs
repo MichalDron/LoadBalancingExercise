@@ -1,7 +1,9 @@
-﻿namespace LoadBalancing.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace LoadBalancing.Abstractions
 {
     public interface ILoadBalancer
     {
-        string get();
+        Task<string> get();
     }
 }

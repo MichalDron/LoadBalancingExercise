@@ -52,7 +52,7 @@ namespace LoadBalancing.Tests
             var result = new List<string>();
             for (int i = 0; i < 7; i++)
             {
-                result.Add(_loadBalancer.get());
+                result.Add(_loadBalancer.get().Result);
             }
 
             // Assert
@@ -71,7 +71,7 @@ namespace LoadBalancing.Tests
             _providerStoreService.Register(provider2);
 
             // Act & Assert
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 2; i++)
             {
                 Assert.DoesNotThrow(() => _loadBalancer.get());
             }
@@ -99,7 +99,7 @@ namespace LoadBalancing.Tests
             var result = new List<string>();
             for (int i = 0; i < 13; i++)
             {
-                result.Add(_loadBalancer.get());
+                result.Add(_loadBalancer.get().Result);
             }
 
             // Assert

@@ -52,7 +52,7 @@ namespace LoadBalancing.HeartBeatChecker
             {
                 isProviderAvailable = provider.check();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 //Console.WriteLine(e);
                 isProviderAvailable = false;

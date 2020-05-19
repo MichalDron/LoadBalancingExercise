@@ -1,10 +1,12 @@
-﻿namespace LoadBalancing.Providers.Abstractions
+﻿using System.Threading.Tasks;
+
+namespace LoadBalancing.Providers.Abstractions
 {
     public interface IProvider
     {
         string Id { get; }
 
-        string get();
+        Task<string> get();
 
         bool check();
     }

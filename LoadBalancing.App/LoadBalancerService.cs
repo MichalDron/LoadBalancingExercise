@@ -24,24 +24,24 @@ namespace LoadBalancing.App
         {
             Console.WriteLine($"{DateTime.UtcNow} - {nameof(LoadBalancerService)}: Service is starting.");
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(500));
+            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromMilliseconds(300));
 
             return Task.CompletedTask;
         }
 
-        private void DoWork(object state)
+        private async void DoWork(object state)
         {
             Console.WriteLine($"{DateTime.UtcNow} - {nameof(LoadBalancerService)}: Service runs job");
 
             try
             {
-                var result = _loadBalancer.get();
+                var result = await _loadBalancer.get();
 
                 Console.WriteLine($"{DateTime.UtcNow} - {nameof(LoadBalancerService)}: Request was handled by provider with id = '{result}'");
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Console.WriteLine($"{DateTime.UtcNow} - {nameof(LoadBalancerService)}: ERROR: {e.GetType()}");
             }
         }
 

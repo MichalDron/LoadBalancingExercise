@@ -18,7 +18,11 @@ namespace LoadBalancing.App
             var host = new HostBuilder().ConfigureServices((hostContext, services) =>
            {
                services
-                   .AddLoadBalancer(options => options.SetInvocationAlgorithm<RoundRobinInvocationAlgorithm>())
+                   .AddLoadBalancer(options =>
+                   {
+                       options.SetInvocationAlgorithm<RoundRobinInvocationAlgorithm>();
+                       options.MaximumNumberOfParallelRequests = 2;
+                   })
                    .AddLoadBalancerHeartBeatCheckService(options => options.CheckPeriodInSeconds = 3)
                    .AddHostedService<LoadBalancerService>();
            }).Build();
