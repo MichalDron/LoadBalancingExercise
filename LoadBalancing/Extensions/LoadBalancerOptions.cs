@@ -22,5 +22,10 @@ namespace LoadBalancing.Extensions
         {
             InvocationAlgorithmType = typeof(T);
         }
+
+        /// <summary>
+        /// Parameter Y
+        /// </summary>
+        public int MaximumNumberOfParallelRequests { get; set; } = 1;
     }
 }

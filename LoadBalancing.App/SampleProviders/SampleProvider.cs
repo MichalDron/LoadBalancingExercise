@@ -1,4 +1,5 @@
-﻿using LoadBalancing.Providers.Abstractions;
+﻿using System.Threading.Tasks;
+using LoadBalancing.Providers.Abstractions;
 
 namespace LoadBalancing.App.SampleProviders
 {
@@ -20,8 +21,9 @@ namespace LoadBalancing.App.SampleProviders
             return _check;
         }
 
-        public string get()
+        public async Task<string> get()
         {
+            await Task.Delay(10000);
             return _id;
         }
     }

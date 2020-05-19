@@ -21,7 +21,8 @@ namespace LoadBalancing.Extensions
             }
 
             serviceCollection
-                .AddTransient(typeof(IInvocationAlgorithm), loadBalancerOptions.InvocationAlgorithmType);
+                .AddTransient(typeof(IInvocationAlgorithm), loadBalancerOptions.InvocationAlgorithmType)
+                .AddSingleton<LoadBalancerOptions>(loadBalancerOptions);
 
             return serviceCollection;
         }

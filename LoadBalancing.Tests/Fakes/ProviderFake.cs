@@ -1,4 +1,5 @@
 ﻿using LoadBalancing.Providers.Abstractions;
+using System.Threading.Tasks;
 
 namespace LoadBalancing.Tests.Fakes
 {
@@ -20,9 +21,9 @@ namespace LoadBalancing.Tests.Fakes
             return _check;
         }
 
-        public string get()
+        public Task<string> get()
         {
-            return _id;
+            return Task.FromResult(_id);
         }
     }
 }
